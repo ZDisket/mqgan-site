@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spectrograms Strike Back: Efficient Audio Language Modeling with MQGAN</title>
+  <style>
+    /* ---------- Base styles ---------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      line-height: 1.6;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    header {
+      background: #1e40af;          /* indigo-700 */
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+	
+    header .subtitle {
+      font-size: 1.1rem;
+      margin-top: 0.25rem;
+    }
+
+    header .author {
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+      opacity: 0.9;
+    }
+	
+    main {
+      max-width: 1024px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section { margin-bottom: 2.5rem; }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #1e3a8a;              /* indigo-800 */
+      font-size: 1.5rem;
+    }
+
+    /* ---------- Abstract ---------- */
+    #abstract p { text-align: justify; }
+
+    #diagram { text-align: center; }
+
+    #diagram img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    }
+
+        /* ---------- Samples ---------- */
+    #samples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    #samples .samples-desc {
+      grid-column: 1 / -1; /* span full width */
+      margin-bottom: 0.5rem;
+      text-align: justify;
+    }
+
+    .sample {
+      background: #ffffff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      overflow: hidden;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sample img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .sample audio {
+      width: 100%;
+      outline: none;
+    }
+
+    /* ---------- Links ---------- */
+    #links a {
+      display: inline-block;
+      margin-right: 1rem;
+      margin-bottom: 0.75rem;
+      background: #2563eb;         /* blue-600 */
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    #links a:hover { background: #1e40af; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Spectrograms Strike Back</h1>
+    <p class="subtitle">Efficient Audio Language Modeling with MQGAN</p>
+    <p class="author">ZDisket &middot; May&nbsp;2025</p>
+  </header>
+
+  <main>
+    <!-- ========== Abstract ========== -->
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>
+        <!-- Replace this placeholder with your abstract text -->
+		Audio language modeling remains a challenging problem in machine learning due to the high dimensionality and temporal complexity of raw waveform data. Recent approaches have introduced neural audio codecs that compress audio into discrete token sequences, enabling the use of language modeling techniques. However, many of these methods rely on multiple codebooks or hierarchical structures, which increase system complexity and computational cost.
+		<br><br>
+		In this work, we present MQGAN, a compact and efficient vector-quantized spectrogram codec designed to make audio language modeling easy. MQGAN combines a convolutional autoencoder, trained adversarially, with a vocoder, enabling reconstruction of 44.1KHz audio from a single 1k codebook operating at 86 tokens per second. We demonstrate that these compressed spectrogram tokens can be modeled autoregressively using a simple LSTM, achieving coherent music generation with just 18 million parameters trained in under a day on a single MI300X GPU. Our results suggest that spectrogram-based tokenization offers a simple yet effective path toward efficient audio language models.      </p>
+    </section>
+
+    <!-- ========== Diagram ========== -->
+    <section id="diagram">
+      <h2>Inference</h2>
+      <img src="assets/mqgan_diagram.svg" alt="MQGAN Workflow Diagram" />
+    </section>
+
+
+    <!-- ========== Samples ========== -->
+    <section id="samples">
+      <h2>Samples</h2>
+      <p class="samples-desc">
+        To test out and validate our approach, we trained a small autoregressive baseline--<strong>MusicLSTM</strong>--on a 500 hour subset of the <em>MTG&nbsp;Jamendo</em> dataset. The examples below present spectrogram reconstructions (image) and their corresponding audio (player) side by side.
+      </p>
+
+      <!-- Sample 1 -->
+      <div class="sample">
+        <img src="assets/1.png" alt="Spectrogram of Sample 1" />
+        <audio controls src="assets/1.wav"></audio>
+      </div>
+
+      <!-- Sample 2 -->
+      <div class="sample">
+        <img src="assets/2.png" alt="Spectrogram of Sample 2" />
+        <audio controls src="assets/2.wav"></audio>
+      </div>
+
+      <!-- Sample 3 -->
+      <div class="sample">
+        <img src="assets/3.png" alt="Spectrogram of Sample 3" />
+        <audio controls src="assets/3.wav"></audio>
+      </div>
+	  
+      <!-- Sample 4 -->
+      <div class="sample">
+        <img src="assets/4.png" alt="Spectrogram of Sample 4" />
+        <audio controls src="assets/4.wav"></audio>
+      </div>
+
+      <!-- Sample 4 -->
+      <div class="sample">
+        <img src="assets/5.png" alt="Spectrogram of Sample 5" />
+        <audio controls src="assets/5.wav"></audio>
+      </div>
+
+      <!-- Sample 4 -->
+      <div class="sample">
+        <img src="assets/6.png" alt="Spectrogram of Sample 5" />
+        <audio controls src="assets/6.wav"></audio>
+      </div>
+	  
+      <!-- Duplicate .sample blocks as needed for more examples -->
+    </section>
+
+    <!-- ========== Links ========== -->
+    <section id="links">
+      <h2>Try &amp; Read More</h2>
+      <a href="https://huggingface.co/spaces/ZDisket/MusicLSTMDemo" target="_blank" rel="noopener">HuggingFace Space (slow)</a>
+      <a href="https://github.com/ZDisket/MQGAN/tree/master" target="_blank" rel="noopener">Code on GitHub (incomplete)</a>
+      <a href="https://open.substack.com/pub/zdtech/p/spectrograms-strike-back-efficient?r=4a9mkn&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">Technical Report on Substack</a>
+    </section>
+  </main>
+</body>
+</html>
